@@ -24,9 +24,9 @@ struct ContactConstants {
 //MARK: - Class Declaration
 class Contact {
     
-    let name: String
-    let number: String
-    let email: String
+    var name: String
+    var number: String?
+    var email: String?
     let ckRecordID: CKRecord.ID
     
     
@@ -45,8 +45,8 @@ extension CKRecord {
         self.init(recordType: ContactConstants.recordTypeKey, recordID: contact.ckRecordID)
         self.setValuesForKeys ([
             ContactConstants.nameKey : contact.name,
-            ContactConstants.numberKey : contact.number,
-            ContactConstants.emailKey : contact.email
+            ContactConstants.numberKey : contact.number ?? "",
+            ContactConstants.emailKey : contact.email ?? ""
         ])
     }
 }
@@ -61,5 +61,11 @@ extension Contact {
             else {return nil}
         
         self.init(name: name, number: number, email: email)
+    }
+}
+
+extension Contact: Equatable {
+    static func == (lhs: Contact, rhs: Contact) -> Bool {
+        return lhs.ckRecordID == rhs.ckRecordID
     }
 }

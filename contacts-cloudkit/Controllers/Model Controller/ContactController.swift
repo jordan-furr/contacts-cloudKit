@@ -17,7 +17,7 @@ class ContactController {
     //source of truth
     var contacts: [Contact] = []
     
-    let privateDB = CKContainer.default().privateCloudDatabase
+    let publicDB = CKContainer.default().publicCloudDatabase
     
     //MARK: - CRUD
     
@@ -30,7 +30,7 @@ class ContactController {
     func save(contact: Contact, completion: @escaping (Result<Contact?, ContactError>) -> Void){
         //init ckrecord from contact object
         let contactRecord = CKRecord(contact: contact)
-        privateDB.save(contactRecord) { (record, error) in
+        publicDB.save(contactRecord) { (record, error) in
             
             if let error = error {
                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
@@ -67,12 +67,11 @@ class ContactController {
             print(("Updated \(record.recordID.recordName) successfully in CloudKit"))
                 completion(.success(contact))
         }
-        privateDB.add(operation)
+        publicDB.add(operation)
     }
     
     func delete(contact: Contact, completion: @escaping (Result<Bool, ContactError>) -> Void) {
         
-        //create operation
         let operation = CKModifyRecordsOperation(recordsToSave: nil, recordIDsToDelete: [contact.ckRecordID])
         operation.savePolicy = .changedKeys
         operation.qualityOfService = .userInteractive
@@ -88,7 +87,7 @@ class ContactController {
                 return completion(.failure(.unexpectedRecords))
             }
         }
-        privateDB.add(operation)
+        publicDB.add(operation)
     }
     
     func fetchContacts(completion: @escaping (Result<[Contact], ContactError>) -> Void) {
@@ -96,7 +95,7 @@ class ContactController {
         let contactPredicate = NSPredicate(value: true)
         let query = CKQuery(recordType: ContactConstants.recordTypeKey, predicate: contactPredicate)
         
-        privateDB.perform(query, inZoneWith: nil) { (records, error) in
+        publicDB.perform(query, inZoneWith: nil) { (records, error) in
             if let error = error {
                 print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
                 completion(.failure(.ckError(error)))

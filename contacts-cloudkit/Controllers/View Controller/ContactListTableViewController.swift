@@ -12,35 +12,64 @@ class ContactListTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        ContactController.shared.fetchContacts { (result) in
+            self.updateViews()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+    
+    func updateViews() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 
     // MARK: - Table view data source
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return ContactController.shared.contacts.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath)
 
-        // Configure the cell...
+        let contact = ContactController.shared.contacts[indexPath.row]
+        cell.textLabel?.text = contact.name
+        cell.detailTextLabel?.text = contact.number ?? ""
 
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+         if editingStyle == .delete {
+             let contactToDelete = ContactController.shared.contacts[indexPath.row]
+             guard let index = ContactController.shared.contacts.firstIndex(of: contactToDelete) else { return }
+            ContactController.shared.delete(contact: contactToDelete) { (result) in
+                 switch result {
+                 case .success(let success):
+                     if success {
+                         ContactController.shared.contacts.remove(at: index)
+                         DispatchQueue.main.async {
+                             tableView.deleteRows(at: [indexPath], with: .fade)
+                         }
+                     }
+                 case .failure(let error):
+                     print(error.errorDescription)
+                 }
+             }
+         }
+     }
   
-    
-    
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "toDetail" {
+            guard let indexPath = tableView.indexPathForSelectedRow,
+                let destinationVC = segue.destination as? ContactDetailViewController else {return}
+            let contactPoint = ContactController.shared.contacts[indexPath.row]
+            destinationVC.contact = contactPoint
+        }
     }
-    */
+    
 
 }

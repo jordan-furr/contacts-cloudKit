@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="B6E-bK-IkW">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
@@ -49,16 +49,22 @@
                             <outlet property="delegate" destination="lT6-Ok-ye9" id="qo0-fH-TKO"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Contacts" id="aUF-Nd-qIe"/>
+                    <navigationItem key="navigationItem" title="Contacts" id="aUF-Nd-qIe">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="g75-NR-7YB">
+                            <connections>
+                                <segue destination="bLO-s7-nCF" kind="show" id="r03-t1-FhN"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jKV-BL-Mws" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="855.07246376811599" y="148.66071428571428"/>
         </scene>
-        <!--View Controller-->
+        <!--Contact Detail View Controller-->
         <scene sceneID="xhp-0N-0xb">
             <objects>
-                <viewController id="bLO-s7-nCF" sceneMemberID="viewController">
+                <viewController id="bLO-s7-nCF" customClass="ContactDetailViewController" customModule="contacts_cloudkit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ELt-an-alQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -96,16 +102,27 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pri-jJ-oh8">
+                                <rect key="frame" x="281" y="401" width="103" height="30"/>
+                                <state key="normal" title="Delete Contact">
+                                    <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteTapped:" destination="bLO-s7-nCF" eventType="touchUpInside" id="25g-nV-7By"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="ToL-kg-wn9" firstAttribute="trailing" secondItem="w9Q-tx-5o3" secondAttribute="trailing" constant="20" id="3Ix-Pf-oXw"/>
+                            <constraint firstItem="ToL-kg-wn9" firstAttribute="trailing" secondItem="Pri-jJ-oh8" secondAttribute="trailing" constant="30" id="3XK-3A-pEq"/>
                             <constraint firstItem="ruB-1m-b1F" firstAttribute="leading" secondItem="ToL-kg-wn9" secondAttribute="leading" constant="20" id="3iw-lV-uVm"/>
                             <constraint firstItem="w9Q-tx-5o3" firstAttribute="top" secondItem="CXn-xT-yN0" secondAttribute="bottom" constant="10" id="DqN-xg-VVW"/>
                             <constraint firstItem="ToL-kg-wn9" firstAttribute="trailing" secondItem="B1a-lR-boM" secondAttribute="trailing" constant="20" id="EbN-Fh-GdW"/>
                             <constraint firstItem="B1a-lR-boM" firstAttribute="top" secondItem="ruB-1m-b1F" secondAttribute="bottom" constant="10" id="JFN-YV-JxY"/>
                             <constraint firstItem="d3C-AY-GJy" firstAttribute="top" secondItem="B1a-lR-boM" secondAttribute="bottom" constant="20" id="M1D-Ke-hY0"/>
                             <constraint firstItem="ruB-1m-b1F" firstAttribute="top" secondItem="w9Q-tx-5o3" secondAttribute="bottom" constant="20" id="O61-bN-h1D"/>
+                            <constraint firstItem="Pri-jJ-oh8" firstAttribute="top" secondItem="XXv-Wq-TMA" secondAttribute="bottom" constant="30" id="TkL-OI-PIf"/>
                             <constraint firstItem="XXv-Wq-TMA" firstAttribute="top" secondItem="d3C-AY-GJy" secondAttribute="bottom" constant="10" id="U10-FK-fxe"/>
                             <constraint firstItem="CXn-xT-yN0" firstAttribute="top" secondItem="ToL-kg-wn9" secondAttribute="top" constant="45" id="ZMq-Mb-GJf"/>
                             <constraint firstItem="ToL-kg-wn9" firstAttribute="trailing" secondItem="d3C-AY-GJy" secondAttribute="trailing" constant="20" id="g6S-L1-WK2"/>
@@ -123,8 +140,17 @@
                         <viewLayoutGuide key="safeArea" id="ToL-kg-wn9"/>
                     </view>
                     <navigationItem key="navigationItem" id="bO6-zQ-sCU">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="VPQ-ik-doo"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="VPQ-ik-doo">
+                            <connections>
+                                <action selector="saveTapped:" destination="bLO-s7-nCF" id="gAN-ni-mS4"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="emailLabel" destination="XXv-Wq-TMA" id="vNZ-13-xGd"/>
+                        <outlet property="nameLabel" destination="w9Q-tx-5o3" id="xVA-Gs-bmI"/>
+                        <outlet property="numberLabel" destination="B1a-lR-boM" id="ZM9-wp-aGR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SQA-BR-ddt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -150,4 +176,7 @@
             <point key="canvasLocation" x="97" y="149"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="E6X-ck-phr"/>
+    </inferredMetricsTieBreakers>
 </document>

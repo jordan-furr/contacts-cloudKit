@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C53FE92A2437A15F009576DB /* ContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53FE9292437A15F009576DB /* ContactDetailViewController.swift */; };
 		C5B2F55F24379CA9007F9CFF /* ContactListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B2F55E24379CA9007F9CFF /* ContactListTableViewController.swift */; };
 		C5F4EB4824378A7500DE4A68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4EB4724378A7500DE4A68 /* AppDelegate.swift */; };
 		C5F4EB4A24378A7500DE4A68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4EB4924378A7500DE4A68 /* SceneDelegate.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C53FE9292437A15F009576DB /* ContactDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailViewController.swift; sourceTree = "<group>"; };
 		C5B2F55E24379CA9007F9CFF /* ContactListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListTableViewController.swift; sourceTree = "<group>"; };
 		C5F4EB4424378A7500DE4A68 /* contacts-cloudkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "contacts-cloudkit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5F4EB4724378A7500DE4A68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "../New Group/AppDelegate.swift"; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				C5B2F55E24379CA9007F9CFF /* ContactListTableViewController.swift */,
+				C53FE9292437A15F009576DB /* ContactDetailViewController.swift */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				C5B2F55F24379CA9007F9CFF /* ContactListTableViewController.swift in Sources */,
 				C5F4EB6324378BFF00DE4A68 /* Contact.swift in Sources */,
 				C5F4EB4824378A7500DE4A68 /* AppDelegate.swift in Sources */,
+				C53FE92A2437A15F009576DB /* ContactDetailViewController.swift in Sources */,
 				C5F4EB6724378F4700DE4A68 /* ContactController.swift in Sources */,
 				C5F4EB692437917D00DE4A68 /* ContactError.swift in Sources */,
 				C5F4EB4A24378A7500DE4A68 /* SceneDelegate.swift in Sources */,
@@ -358,6 +362,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7V2Q4X6DAJ;
 				INFOPLIST_FILE = "contacts-cloudkit/New Group/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -377,6 +382,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7V2Q4X6DAJ;
 				INFOPLIST_FILE = "contacts-cloudkit/New Group/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
